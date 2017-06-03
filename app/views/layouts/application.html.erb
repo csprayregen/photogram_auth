@@ -42,15 +42,15 @@
         <ul class="nav navbar-nav">
           <li><a href="/users">All Users</a></li>
           <li><a href="/comments">Comments</a></li>
-          <li><a href="/likes">Likes</a></li>
+          <li><a href="/my_likes">My Likes</a></li>
           <li><a href="/photos">Photos</a></li>
-    
+
           <%if current_user != nil%>
 
-          <li><a href=  "/users/<%=current_user.id%>" My Wall</a></li>
+          <li><a href=  "/users/<%=current_user.id%>"> My Wall </a></li>
 
           <% else %>
-          <li><a href="/users/sign_up">Sign Up
+          <li><a href="/users/sign_up">My Wall</li>
 
             <% end %>
 
