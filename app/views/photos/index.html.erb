@@ -5,150 +5,106 @@
   </h1>
 </div>
 
+
 <div class="row">
-<div class="col-md-8 col-md-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">
-        <a href="/users/<%=current_user.id%>">current_user.username</a>
-        <small>
-          2 days ago
-        </small>
-      </h3>
-    </div>
 
-    <div class="panel-body">
-      <a href="/photos/105">
-        <img src="https://www.tesla.com/tesla_theme/assets/img/models/slideshow/Red_Bay-1440.jpg?20170420" class="img-responsive">
-      </a>
+  <div class="col-md-8 col-md-offset-2">
+    <% @photos.each do |photo| %>
 
-      <p>
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+
+        <h3 class="panel-title">
+
+          <a href="/users/<%=photo.user_id%>"><%=photo.user_id%></a>
+          <small>
+            <%=photo.created_at%>
+          </small>
+        </h3>
+      </div>
+
+      <div class="panel-body">
+
+        <a href="/photos/<%=photo.id%>">
+          <img src=<%=photo.image%> class="img-responsive">
+        </a>
+
+        <p>
           <form action="/create_like" method="post">
             <!-- Hidden input for authenticity token to protect from forgery -->
-            <input name="authenticity_token" type="hidden" value="KLyXkvciWuozfEE1YG93R2h53Y/0zjkZUbHMumkYsbj0rueb59Ti7yq9oN6oVPWi8xlj2d5I/QAc3ZkU/aM3xQ==">
+            <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
-            <input type="hidden" name="photo_id" value="105">
+            <input type="hidden" name="photo_id" value= "<%= photo.id %>">
 
-            <input type="hidden" name="user_id" value="136">
+            <input type="hidden" name="user_id" value="<%= photo.user_id %>">
 
             <button class="btn btn-link">
               <i class="fa fa-heart-o"></i>
             </button>
 
-            test1, alan, noob, and campb441
-            like
-            this
           </form>
-      </p>
+        </p>
 
-      <ul class="media-list">
+        <ul class="media-list">
 
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/133">alice</a>
-              <small>
-                2 days ago
-              </small>
-            </h6>
-            Tesla_Test
-          </div>
-        </li>
+          <li class="media">
+            <div class="media-body">
+              <h6 class="media-heading">
+                <a href="/users/133">alice</a>
+                <small>
+                  2 days ago
+                </small>
+              </h6>
+              Tesla_Test
+            </div>
+          </li>
 
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/133">alice</a>
-              <small>
-                2 days ago
-              </small>
-            </h6>
-            this is cool
-          </div>
-        </li>
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/133">alice</a>
-              <small>
-                2 days ago
-              </small>
-            </h6>
-            test comment 3
-          </div>
-        </li>
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/133">alice</a>
-              <small>
-                2 days ago
-              </small>
-            </h6>
-            this is a test comment
-          </div>
-        </li>
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/130">tmenson.r</a>
-              <small>
-                1 day ago
-              </small>
-            </h6>
-            test
-          </div>
-        </li>
-        <li class="media">
-          <div class="media-body">
-            <h6 class="media-heading">
-              <a href="/users/137">bobby</a>
-              <small>
-                1 day ago
-              </small>
-            </h6>
-            wow
-          </div>
-        </li>
+          <% end %>
 
-        <li class="media">
-          <div class="media-body">
-            <form action="/create_comment" method="post">
-              <!-- Hidden input for authenticity token to protect from forgery -->
-              <input name="authenticity_token" type="hidden" value="GCvsYCvkGiOEiVYzdjLkq7kmkVtZQMS17+9O2X9H2A7EOZxpOxKiJp1It9i+CWZOIkYvDXPGAKyigxt36/xecw==">
 
-              <input type="hidden" name="photo_id" value="105">
 
-              <input type="hidden" name="user_id" value="136">
 
-              <!-- Label and input for body -->
-              <div class="form-group">
-                <label for="body" class="sr-only">
-                  Body
-                </label>
 
-                <div class="input-group">
-                  <input type="text" id="body" name="body" class="form-control" placeholder="Add a comment..." required>
 
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                      <i class="fa fa-commenting-o"></i>
-                    </button>
-                  </span>
-                </div><!-- /input-group -->
-              </div>
-            </form>
-          </div>
-        </li>
-      </ul>
-      <div class="btn-group btn-group-justified">
-        <a href="/photos" class="btn btn-primary">
-          <i class="fa fa-chevron-left"></i>
-        </a>
+          <li class="media">
+            <div class="media-body">
+              <form action="/create_comment" method="post">
+                <!-- Hidden input for authenticity token to protect from forgery -->
+                <input name="authenticity_token" type="hidden" value="GCvsYCvkGiOEiVYzdjLkq7kmkVtZQMS17+9O2X9H2A7EOZxpOxKiJp1It9i+CWZOIkYvDXPGAKyigxt36/xecw==">
+
+                <input type="hidden" name="photo_id" value="105">
+
+                <input type="hidden" name="user_id" value="136">
+
+                <!-- Label and input for body -->
+                <div class="form-group">
+                  <label for="body" class="sr-only">
+                    Body
+                  </label>
+
+                  <div class="input-group">
+                    <input type="text" id="body" name="body" class="form-control" placeholder="Add a comment..." required>
+
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">
+                        <i class="fa fa-commenting-o"></i>
+                      </button>
+                    </span>
+                  </div><!-- /input-group -->
+                </div>
+              </form>
+            </div>
+          </li>
+        </ul>
+        <div class="btn-group btn-group-justified">
+          <a href="/photos" class="btn btn-primary">
+            <i class="fa fa-chevron-left"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 
