@@ -56,7 +56,8 @@
           <!-- otherwise (if the current user is in the list of fans) build a form to delete likes -->
           <% else %>
           <p>
-            <form action="/delete_like/<%=photo.likes.find_by(:user_id => @current_user.id)%>" method="post">
+            <!-- change method from post or put in a tag with href =  -->
+            <form action="/delete_like/<%=photo.likes.find_by(:user_id => @current_user.id).id%>" method="get">
 
               <button class="btn btn-link">
                 <i class="fa fa-heart"></i>
