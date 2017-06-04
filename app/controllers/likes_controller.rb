@@ -29,12 +29,8 @@ class LikesController < ApplicationController
     @like.photo_id = params[:photo_id]
 
     save_status = @like.save
-
-    if save_status == true
-      redirect_to("/photos", :notice => "Like created successfully.")
-    else
-      redirect_to("/photos")
-    end
+    
+    redirect_to("/photos", :notice => "Like created successfully.")
   end
 
   def edit

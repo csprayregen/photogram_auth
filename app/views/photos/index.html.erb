@@ -36,6 +36,9 @@
             <img src=<%=photo.image%> class="img-responsive">
           </a>
 
+
+          <!-- if the current user is not included in the list of fans of this photo, build a form to create likes  -->
+          <% if photo.fans.where(:id => current_user.id) == nil %>
           <p>
             <form action="/create_like" method="post">
               <!-- Hidden input for authenticity token to protect from forgery -->
@@ -48,17 +51,31 @@
               <button class="btn btn-link">
                 <i class="fa fa-heart-o"></i>
               </button>
-
-              <small>
-                <% photo.likes.each do |like| %>
-                <%=User.find_by(:id => like.user_id).username %>
-
-                <% end %>
-              </small>
-
             </form>
-
           </p>
+          <!-- otherwise (if the current user is in the list of fans) build a form to delete likes -->
+          <% else %>
+          <p>
+            <form action="/delete_like/<%=:id%>" method="post">
+
+              <button class="btn btn-link">
+                <i class="fa fa-heart"></i>
+              </button>
+            </form>
+          </p>
+
+          <% end %>  <!--closes if-then loop on liking-unliking-->
+
+          <% photo.likes.each do |like| %>
+          <small>
+            <%=User.find_by(:id => like.user_id).username %>
+          </small>
+          <% end %> <!--closes loop on listing all photo likes -->
+
+
+
+
+
 
           <ul class="media-list"
 
@@ -74,7 +91,7 @@
               <%=comment.body%>
             </div>
           </li>
-          <% end %>
+          <% end %> <!-- closes loop on listing all photo comments -->
 
           <li class="media">
             <div class="media-body">
@@ -122,7 +139,7 @@
         <a href="/photos" class="btn btn-primary"> <i class="fa fa-chevron-left"></i>
         </a>
 
-        <% end %>
+        <% end %> <!-- closes if-then on edit-delete buttons -->
 
 
 
@@ -132,20 +149,6 @@
   </div>   <!-- closes offset -->
 </div>    <!-- closes row -->
 
-<% end %>
+<% end %> <!-- #closes full loop -->
 
 </div> <!--closes container -->
-
-
-
-<!-- this came when I copied and pasted from source, not sure if needed anymore -->
-<!--
-<div class="btn-group btn-group-justified">
-<a href="/photos" class="btn btn-primary">
-<i class="fa fa-chevron-left"></i>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div> -->
