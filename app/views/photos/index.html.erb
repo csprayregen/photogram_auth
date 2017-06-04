@@ -23,7 +23,7 @@
 
           <h3 class="panel-title">
 
-            <a href="/users/<%=photo.user_id%>"><%=User.find_by(:id => photo.user_id).username %></a>
+            <a href="/users/<%=photo.user_id%>"><%=photo.user.username %></a>
             <small>
               <%= time_ago_in_words(photo.updated_at)%> ago
             </small>
@@ -38,7 +38,7 @@
 
 
           <!-- if the current user is not included in the list of fans of this photo, build a form to create likes  -->
-          <% if photo.fans.where(:id => current_user.id) == nil %>
+          <% if photo.fans.where(:id => current_user.id).count == 0 %>
           <p>
             <form action="/create_like" method="post">
               <!-- Hidden input for authenticity token to protect from forgery -->
@@ -56,7 +56,7 @@
           <!-- otherwise (if the current user is in the list of fans) build a form to delete likes -->
           <% else %>
           <p>
-            <form action="/delete_like/<%=:id%>" method="post">
+            <form action="/delete_like/<%=photo.likes.find_by(:user_id => @current_user.id)%>" method="post">
 
               <button class="btn btn-link">
                 <i class="fa fa-heart"></i>
